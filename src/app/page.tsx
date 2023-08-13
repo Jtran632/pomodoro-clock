@@ -6,7 +6,7 @@ export default function Home() {
   const [work, setWork] = useState(25)
   const [rest, setRest] = useState(5)
   const [clock, setClock] = useState(0)
-  const [isWorking, setIsWorking] = useState(true)
+  const [isWorking, setIsWorking] = useState(false)
   const [pause, setPause] = useState(false)
   const [reset, setReset] = useState(true)
   const [startSfx] = useSound('/Sounds/start.mp3')
