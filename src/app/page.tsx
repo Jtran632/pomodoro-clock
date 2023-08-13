@@ -1,19 +1,23 @@
 'use client'
 import Image from 'next/image'
+import useSound from 'use-sound';
 import { useState, useEffect, useRef } from 'react'
 export default function Home() {
   const [work, setWork] = useState(25)
   const [rest, setRest] = useState(5)
   const [clock, setClock] = useState(0)
   const [isWorking, setIsWorking] = useState(true)
-  const [pause, setPause] = useState(true)
+  const [pause, setPause] = useState(false)
   const [reset, setReset] = useState(true)
+  const [startSfx] = useSound('/Sounds/start.mp3')
+  const [chimesSfx] = useSound('/Sounds/chimes.mp3')
   let decreaseNum: any;
   decreaseNum = () => setClock((prev) => prev - 1)
   const count = useRef(decreaseNum)
   useEffect(() => {
     if (clock <= 0) {
       setIsWorking(isWorking => !isWorking)
+      chimesSfx()
     }
   }, [clock])
   useEffect(() => {
@@ -30,6 +34,12 @@ export default function Home() {
     return () => clearInterval(count.current);
   }, [decreaseNum]);
 
+  useEffect(() => {
+    if (!pause) {
+      clearInterval(count.current)
+    }
+  })
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24" >
       <div className='text-center border-2'>
@@ -38,6 +48,9 @@ export default function Home() {
         <div className='flex justify-center items-center w-80 h-80 border-8 border-double'>
           {clock}
         </div>
+        <button onClick={() => { setPause(pause => !pause), startSfx() }} className='border-2 p-2  w-full'>
+          {pause ? "Pause" : "Start"}
+        </button>
         <div className='p-2'>
           Current State: {isWorking ? "Working" : "Resting"}
         </div>
