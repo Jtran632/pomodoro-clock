@@ -1,5 +1,5 @@
 'use client'
-import Image from 'next/image'
+// @ts-ignore
 import useSound from 'use-sound';
 import { useState, useEffect, useRef } from 'react'
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
       setIsWorking(isWorking => !isWorking)
       chimesSfx()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clock])
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function Home() {
     else if (!isWorking) {
       setClock(rest * 60)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isWorking, reset])
 
   useEffect(() => {
